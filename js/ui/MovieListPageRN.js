@@ -3,7 +3,7 @@ import { View, Text, Button, FlatList } from 'react-native';
 import { MovieTile } from './MovieTile';
 
 export class MovieListPageRN extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {movies: []};
@@ -15,8 +15,6 @@ export class MovieListPageRN extends Component {
 
     this.fetchMovies();
   }
-
-  static navigationOptions = { title: "Movie List RN" };
 
   renderButtons() {
     return (
@@ -55,29 +53,13 @@ export class MovieListPageRN extends Component {
     );
   }
 
-
   render() {
     return (
-      <View style={{borderWidth: 5, alignItems: 'center', flex: 1}}>
+      <View style={{borderWidth: 2, alignItems: 'center', flex: 1}}>
         {this.renderButtons()}
         {this.renderMovies()}
       </View>
     );
-  }
-
-  nextPage() {
-  }
-
-  previousPage() {
-  }
-
-  fetchMovies() {
-    fetch("https://api.themoviedb.org/4/list/1?page=" + this.pageCount + "&api_key=920491e2b5c27c74377d82829dad86b3")
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.totalPages = responseJson.total_pages;
-        this.setState({movies: responseJson.results});
-      });
   }
 
   handlePreviousClick() {
@@ -109,4 +91,15 @@ export class MovieListPageRN extends Component {
     this.pageCount = this.pageCount + 1;
     this.fetchMovies();
   }
+
+  fetchMovies() {
+    fetch("https://api.themoviedb.org/4/list/1?page=" + this.pageCount + "&api_key=920491e2b5c27c74377d82829dad86b3")
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.totalPages = responseJson.total_pages;
+        this.setState({movies: responseJson.results});
+      });
+  }
+
+  static navigationOptions = { title: "Movie List RN" };
 }

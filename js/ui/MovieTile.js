@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image } from 'react-native';
+import { Text, View, Image } from 'react-native';
 
 export class MovieTile extends Component {
   render() {
     let movie = this.props.movie;
+    if (movie === undefined) return(<View/>);
 
     return (
       <View style={{borderWidth: 2, flexDirection: 'row', margin: 15}}>
