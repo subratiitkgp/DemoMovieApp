@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import { View, Button, Image } from 'react-native';
+import { Text, View, Button, Image } from 'react-native';
 
-export class MovieTile extends Component() {
+export class MovieTile extends Component {
   render() {
     let movie = this.props.movie;
 
     return (
-      <View style={{borderWidth: 1, width: '100%', flexDirection: 'row'}}>
-        <Image source={{uri: 'https://image.tmdb.org/t/p/w1280' + movie.poster_path}} />
-        <View>
-          <Text>
+      <View style={{borderWidth: 2, flexDirection: 'row', margin: 15}}>
+        <Image source={{uri: 'https://image.tmdb.org/t/p/w1280' + movie.poster_path}}
+               style={{width: 150, height: 260}} />
+        <View style={{justifyContent: 'flex-start', alignItems: 'center', width: 200, margin: 10}}>
+          <Text style={{fontSize: 16, fontWeight: 'bold'}}>
             {movie.title}
           </Text>
-          <Text>
+          <Text style={{fontSize: 10}}>
             {'Rating: ' + movie.vote_average}
           </Text>
-          <Text>
+          <Text style={{fontSize: 10}}>
             {'Release: ' + movie.release_date}
           </Text>
         </View>

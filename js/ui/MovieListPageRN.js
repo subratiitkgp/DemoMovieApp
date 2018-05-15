@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Button, FlatList } from 'react-native';
-// import { MovieTile } from './MovieTile';
+import { MovieTile } from './MovieTile';
 
 export class MovieListPageRN extends Component {
   constructor (props) {
@@ -45,18 +45,10 @@ export class MovieListPageRN extends Component {
           initialNumToRender={1}
           renderItem={(item) => {
             let movie = item.item;
-            return (
-              <View>
-                <Text>Hello</Text>
-                </View>
-            );
 
-            /*
             return (
               <MovieTile key={movie.id} movie={movie} />
             );
-            */
-
           }}
         />
       </View>
