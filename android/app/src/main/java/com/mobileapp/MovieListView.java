@@ -1,14 +1,15 @@
 package com.mobileapp;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,9 +20,11 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +41,8 @@ public class MovieListView extends LinearLayout {
 
     inflate(context, R.layout.movie_list_view, this);
 
-    arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.movie_tile, R.id.textView1, new ArrayList<Movie>());
-    listView = (ListView)findViewById(R.id.listView_movie);
+    arrayAdapter = new CustomAdapter(context, new ArrayList<Movie>());
+    listView = (ListView) findViewById(R.id.listView_movie);
     listView.setAdapter(arrayAdapter);
     arrayAdapter.notifyDataSetChanged();
 
@@ -74,9 +77,7 @@ public class MovieListView extends LinearLayout {
         (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
           @Override
           public void onResponse(JSONObject response) {
-            System.out.println(response.toString());
             MovieResult movieResult = new Gson().fromJson(response.toString(), MovieResult.class);
-            System.out.println(new Gson().toJson(movieResult));
             renderMovies(movieResult, pageNo);
           }
         }, new Response.ErrorListener() {
@@ -87,19 +88,37 @@ public class MovieListView extends LinearLayout {
     queue.add(jsonObjectRequest);
   }
 
-  /*
-  private static class MyCustomAdapter extends ArrayAdapter<Movie> {
-    public MyCustomAdapter(@NonNull Context context, int resource, @NonNull List<Movie> objects) {
-      super(context, resource, objects);
+  private static class CustomAdapter extends ArrayAdapter<Movie> {
+    public CustomAdapter(Context context, ArrayList<Movie> users) {
+      super(context, 0, users);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+      // Get the data item for this position
       Movie movie = getItem(position);
+      // Check if an existing view is being reused, otherwise inflate the view
+      if (convertView == null) {
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.movie_tile, parent, false);
+      }
+      // Lookup view for data population
+      ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
+      String url = "https://image.tmdb.org/t/p/w1280" + movie.posterPath;
+      Picasso.get().load(url).into(imageView);
 
+      TextView textView1 = (TextView) convertView.findViewById(R.id.textView1);
+      TextView textView2 = (TextView) convertView.findViewById(R.id.textView2);
+      TextView textView3 = (TextView) convertView.findViewById(R.id.textView3);
+
+      // Populate the data into the template view using the data object
+      textView1.setText(movie.title);
+      textView2.setText("Rating: " + movie.voteAverage);
+      textView3.setText("Release: " + movie.releaseDate);
+      
+      // Return the completed view to render on screen
+      return convertView;
     }
   }
-  */
 
   private static class MovieResult {
     @SerializedName("total_pages")
