@@ -11,7 +11,7 @@ export class MovieTile extends Component {
       <View style={{borderWidth: 2, flexDirection: 'row', margin: 15}}>
         <Image source={{uri: 'https://image.tmdb.org/t/p/w1280' + movie.poster_path}}
                style={{width: 150, height: 260}} />
-        <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center', width: "100%", margin: 10}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: "100%", margin: 10}}>
           <Text style={{fontSize: 14, fontWeight: 'bold'}}>
             {movie.title}
           </Text>

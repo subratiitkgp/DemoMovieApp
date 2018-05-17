@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -40,6 +41,33 @@ public class MovieListView extends LinearLayout {
     this.context = context;
 
     inflate(context, R.layout.movie_list_view, this);
+
+    final Button prevButton = (Button) findViewById(R.id.button_previous);
+    final Button nextButton = (Button) findViewById(R.id.button_next);
+
+    prevButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (currentPage <= 1) {
+          currentPage = 1;
+          return;
+        }
+
+        fetchMovies(--currentPage);
+      }
+    });
+
+    nextButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (currentPage >= totalPages) {
+          currentPage = totalPages;
+          return;
+        }
+
+        fetchMovies(++currentPage);
+      }
+    });
 
     arrayAdapter = new CustomAdapter(context, new ArrayList<Movie>());
     listView = (ListView) findViewById(R.id.listView_movie);
@@ -97,10 +125,14 @@ public class MovieListView extends LinearLayout {
     public View getView(int position, View convertView, ViewGroup parent) {
       // Get the data item for this position
       Movie movie = getItem(position);
+
+      if (movie == null) return convertView;
+
       // Check if an existing view is being reused, otherwise inflate the view
       if (convertView == null) {
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.movie_tile, parent, false);
       }
+
       // Lookup view for data population
       ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
       String url = "https://image.tmdb.org/t/p/w1280" + movie.posterPath;
