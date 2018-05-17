@@ -42,6 +42,8 @@ public class MovieListView extends LinearLayout {
 
     inflate(context, R.layout.movie_list_view, this);
 
+    listView = (ListView) findViewById(R.id.listView_movie);
+
     final Button prevButton = (Button) findViewById(R.id.button_previous);
     final Button nextButton = (Button) findViewById(R.id.button_next);
 
@@ -69,11 +71,6 @@ public class MovieListView extends LinearLayout {
       }
     });
 
-    arrayAdapter = new CustomAdapter(context, new ArrayList<Movie>());
-    listView = (ListView) findViewById(R.id.listView_movie);
-    listView.setAdapter(arrayAdapter);
-    arrayAdapter.notifyDataSetChanged();
-
     fetchMovies(1);
   }
 
@@ -81,8 +78,13 @@ public class MovieListView extends LinearLayout {
     totalPages = movieResult.totalPages;
     currentPage = pageNo;
 
-    arrayAdapter.clear();
-    arrayAdapter.addAll(movieResult.results);
+    if (arrayAdapter == null) {
+      arrayAdapter = new CustomAdapter(context, movieResult.results);
+      listView.setAdapter(arrayAdapter);
+    } else {
+      arrayAdapter.clear();
+      arrayAdapter.addAll(movieResult.results);
+    }
 
     if (context.getCurrentActivity() != null) {
       context.getCurrentActivity().runOnUiThread(new Runnable() {
@@ -157,7 +159,7 @@ public class MovieListView extends LinearLayout {
     public int totalPages;
 
     @SerializedName("results")
-    public List<Movie> results;
+    public ArrayList<Movie> results;
   }
 
   private static class Movie {
