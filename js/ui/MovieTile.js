@@ -11,8 +11,8 @@ export class MovieTile extends Component {
       <View style={{borderWidth: 2, flexDirection: 'row', margin: 15}}>
         <Image source={{uri: 'https://image.tmdb.org/t/p/w1280' + movie.poster_path}}
                style={{width: 150, height: 260}} />
-        <View style={{justifyContent: 'flex-start', alignItems: 'center', width: 200, margin: 10}}>
-          <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+        <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center', width: "100%", margin: 10}}>
+          <Text style={{fontSize: 14, fontWeight: 'bold'}}>
             {movie.title}
           </Text>
           <Text style={{fontSize: 10}}>
@@ -21,7 +21,6 @@ export class MovieTile extends Component {
           <Text style={{fontSize: 10}}>
             {'Release: ' + movie.release_date}
           </Text>
-          <NativeTextView text="Hello" style={{width: 50, height: 50, fontSize: 15}} fontSize={15}/>
         </View>
       </View>
     );
