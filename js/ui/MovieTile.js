@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
+import { NativeTextView } from './NativeTextView';
 
 export class MovieTile extends Component {
   render() {
@@ -20,6 +21,7 @@ export class MovieTile extends Component {
           <Text style={{fontSize: 10}}>
             {'Release: ' + movie.release_date}
           </Text>
+          <NativeTextView text="Hello" style={{width: 50, height: 50, fontSize: 15}} fontSize={15}/>
         </View>
       </View>
     );
