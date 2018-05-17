@@ -25,15 +25,15 @@ export class WelcomePage extends Component {
         </Text>
 
         <View style={{margin: 5}}>
-          <Button title='Native UI' onPress={() => this.props.navigation.navigate('MovieListPageNative')} />
+          <Button title='Native' onPress={() => this.props.navigation.navigate('MovieListPageNative')} />
         </View>
 
         <View style={{margin: 5}}>
-          <Button title='RN UI' onPress={() => this.props.navigation.navigate('MovieListPageRN')} />
+          <Button title='React Native' onPress={() => this.props.navigation.navigate('MovieListPageRN')} />
         </View>
 
         <View style={{margin: 5}}>
-          <Button title='MSite' onPress={() => this.props.navigation.navigate('MovieListPageMSite')} />
+          <Button title='Web View' onPress={() => this.props.navigation.navigate('MovieListPageMSite')} />
         </View>
       </View>
     );
