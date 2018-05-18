@@ -23,5 +23,5 @@ const App1 = createStackNavigator({
 });
 
 let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
-App = codePush(codePushOptions)(App1);
-export const App;
+const App = codePush(codePushOptions)(App1);
+export {App};
