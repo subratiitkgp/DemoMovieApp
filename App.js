@@ -15,7 +15,7 @@ import { MovieListPageNative } from './js/ui/MovieListPageNative';
 import { MovieListPageRN } from './js/ui/MovieListPageRN';
 import { MovieListPageMSite } from './js/ui/MovieListPageMSite';
 
-const App1 = createStackNavigator({
+const App = createStackNavigator({
   WelcomePage: { screen: WelcomePage },
   MovieListPageNative: { screen: MovieListPageNative },
   MovieListPageRN: { screen: MovieListPageRN },
@@ -23,5 +23,5 @@ const App1 = createStackNavigator({
 });
 
 let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
-const App = codePush(codePushOptions)(App1);
+App = codePush(codePushOptions)(App);
 export {App};
