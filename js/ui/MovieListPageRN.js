@@ -24,7 +24,7 @@ export class MovieListPageRN extends Component {
         </View>
 
         <View style={{margin: 5}}>
-          <Button title='Next'onPress={this.handleNextClick} />
+          <Button title='Next' onPress={this.handleNextClick} />
         </View>
       </View>
     );
