@@ -22,6 +22,6 @@ const App = createStackNavigator({
   MovieListPageMSite: { screen: MovieListPageMSite }
 });
 
-let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
+let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME, installMode: codePush.InstallMode.IMMEDIATE };
 App = codePush(codePushOptions)(App);
 export {App};
